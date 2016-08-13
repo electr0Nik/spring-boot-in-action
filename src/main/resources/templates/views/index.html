@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <title>Process List</title>
+    <link rel="stylesheet" th:href="@{/css/style.scss}"/>
+  </head>
+  <body>
+    <h2>Your Process List</h2>
+    <div th:unless="${#lists.isEmpty(processList)}">
+      <dl th:each="process : ${processList}">
+        <dt class="headline">
+          <span th:text="${process.todoTitle}">Title</span> by
+          <span th:text="${process.type}">Mediatype</span>
+        </dt>
+        <dt class="description">
+          <span th:if="${process.description}" th:text="${process.description}">Description</span>
+          <span th:if="${process.description eq null}">No Description Available</span>
+        </dt>
+      </dl>
+    </div>
+    <div th:if="${#lists.isEmpty(processList)}">
+      <p>You have no elements in your list!</p>
+    </div>
+
+    <hr/>
+
+    <h3>add an element</h3>
+    <form method="POST">
+      <label for="todoTitle">Title</label>
+      <input id="todoTitle" type="text" name="todoTitle" size="100"></input><br/>
+      <label for="description">Description</label>
+      <input id="description" type="text" name="description" size="150"></input><br/>
+      <label for="type">Media type</label>
+      <select id="type">
+        <option value="MOVIE">Movie</option>
+        <option value="BOOK">Book</option>
+        <option value="MUSIC">Music</option>
+        <option value="UNDEFINED">unknown</option>
+      </select><br/>
+      <label for="active">Active</label>
+      <input type="radio" name="active" value="true">active</input> &nbsp;
+      <input type="radio" name="active" value="false">not active</input><br/>
+
+      <input type="submit"></input>
+    </form>
+  </body>
+</html>
